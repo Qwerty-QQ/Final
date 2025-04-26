@@ -1,0 +1,125 @@
+.top-header {
+  background-color: #600909;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  width: 97%;
+  height: 10px;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  height: 40px;
+  width: 80px;
+  margin-left: -25px;
+  margin-right: 0px;
+}
+
+.header-title {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+}
+.main-header {
+  background-color: #444;
+  color: white;
+  padding: 1rem;
+}
+
+.toggle-container {
+  padding: 10px 20px;
+}
+
+.toggle-button {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200px;
+  background-color: #333;
+  color: white;
+  transition: transform 0.3s ease;
+  padding-top: 60px;
+  z-index: 999;
+}
+
+.sidebar.closed {
+  transform: translateX(-100%);
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.header-nav {
+  /* Align nav items to the right of the header */
+  display: flex;
+  gap: 1.5rem;
+  margin-right: 2rem;
+}
+
+.header-nav ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header-nav li {
+  position: relative;
+}
+
+.header-nav a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: #f0f0f0;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-size: small;
+}
+
+.header-nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.header-nav a.active {
+  background: #ffffff;
+  color: #333333;
+  font-weight: 600;
+}
+
+.header-nav li::after {
+  /* Simple underline effect */
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.header-nav li:hover::after {
+  width: 100%;
+}

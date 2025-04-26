@@ -1,0 +1,24 @@
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.App-header {
+  background-color: #004d40;
+  color: white;
+  padding: 50px 20px;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 8px 21px;
+  font-size: 16px;
+  cursor: pointer;
+  border: revert-layer;
+  background-color: #ad9494;
+  color: #000;
+  border-radius: 60px;
+}

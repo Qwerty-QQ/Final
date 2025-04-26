@@ -1,0 +1,21 @@
+.map-container {
+	display: flex;
+	justify-content: center;  /* Centers horizontally */
+	align-items: center;      /* Centers vertically */
+	height: 500px;
+	width: 80%;               /* Adjust width as needed */
+	margin: 20px auto;           /* Center it within the parent */
+  }
+
+  .button {
+    margin: 10px; /* This adds space around each button */
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #ffc107;
+    color: #000;
+    border-radius: 8px;
+}
+
+  
