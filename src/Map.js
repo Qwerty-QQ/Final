@@ -24,7 +24,7 @@ const destIcon = L.icon({
 });
 
 const initialPosition = [8.228, 124.245];
-const HIGHLIGHTED_BARANGAYS = ['BAGONG SILANG', 'TIBANGA', 'SAN MIGUEL', 'SANTIAGO', 'HINAPLANON', 'SANTO ROSARIO'];
+const HIGHLIGHTED_BARANGAYS = ['BAGONG SILANG', 'TIBANGA', 'SAN MIGUEL', 'SANTIAGO', 'HINAPLANON', 'SANTO ROSARIO', 'DEL CARMEN', 'LUINAB', 'SAN ROQUE', 'UPPER HINAPLANON', 'SANTA FILOMENA'];
 
 const normalizeString = (str) => str?.toUpperCase().trim();
 const shouldHighlight = (barangay) => HIGHLIGHTED_BARANGAYS.includes(normalizeString(barangay));
