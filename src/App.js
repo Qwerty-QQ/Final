@@ -7,31 +7,29 @@ import Home from './Home';
 import MapPage from './Map';
 import RecordsPage from './RecordsPage';
 
-
-
 function App() {
   const handleClick = () => {
     alert("Welcome to MSU-IIT National Multi-purpose Cooperative!");
   };
 
   return (
-    <div className="App">
-      <Header onClick={handleClick} />
-      <Router>
-      <Sidebar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="Map" element={<MapPage />} />
-        <Route path="RecordsPage" element={<RecordsPage />} />
+    <Router>
+      <div className="App">
+        <Header onClick={handleClick} />
 
-        {/* other routes */}
-      </Routes>
+        <div className="app-body">
+          <Sidebar />
+
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/Map" element={<MapPage />} />
+              <Route path="/RecordsPage" element={<RecordsPage />} />
+            </Routes>
+          </main>
+        </div>
+      </div>
     </Router>
-      <main className="main-content">
-        {/* You can add Routes, Pages or Content here */}
-        {/* <h2>Welcome to the Dashboard</h2> */}
-      </main>
-    </div>
   );
 }
 

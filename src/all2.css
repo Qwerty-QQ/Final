@@ -1,21 +1,154 @@
-.map-container {
-	display: flex;
-	justify-content: center;  /* Centers horizontally */
-	align-items: center;      /* Centers vertically */
-	height: 500px;
-	width: 80%;               /* Adjust width as needed */
-	margin: 20px auto;           /* Center it within the parent */
-  }
-
-  .button {
-    margin: 10px; /* This adds space around each button */
-    padding: 12px 24px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: #ffc107;
-    color: #000;
-    border-radius: 8px;
+.map-page {
+  height: 100vh; /* Full screen height */
+  width: 100vw;  /* Full screen width */
+  position: fixed; /*overlay the buttons */
 }
 
+.map-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Optional depending on your design */
+  align-items: center;     /* Optional depending on your design */
+  margin: 0;               /* Remove margins */
   
+}
+
+.map-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: none;         /* No background color */
+  padding: 0;
+  margin: 0;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;   /* Stack buttons vertically */
+  gap: 6px;                 /* Small space between buttons */
+}
+
+
+.button {
+  background-color: #ffc107; /* Light yellow button */
+  border: none;
+  padding: 3px 6px;
+  font-size: 12px;
+  border-radius: 2px;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #e0a800; /* Slightly darker on hover */
+}
+
+.route-instructions {
+  position: absolute;
+  bottom: 100px;
+  left: 5px;
+  padding: 3px;
+  background-color: #b39d9d;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  max-height: 100px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 180px; /* optional: adjust as needed */
+}
+.route-list {
+  margin-left: -0px;
+}
+.route-list1 {
+  margin-left: -20px;
+}
+
+.route-instructions h3 {
+  margin-top: 10px;
+}
+
+.custom-marker {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.marker-label {
+  font-size: 9px;
+  font-weight: bold;
+  color: black;
+  /* background-color: white; */
+  /* border: 1px solid gray; */
+  /* border-radius: 3px; */
+  padding: 1px 3px;
+  margin-bottom: 2px;
+  display: ruby-text;
+}
+
+.marker-img {
+  width: 40px;
+  height: 40px;
+}
+
+.context-menu {
+  position: absolute;
+  display: grid;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 4px;
+  z-index: 1000;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+}
+
+.context-menu button {
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  color: black;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.context-menu button:hover {
+  background-color: #f0f0f0;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.modal input {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+

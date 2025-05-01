@@ -10,7 +10,7 @@ function Header() {
           alt="Cooperative Logo" 
           className="header-logo"
         />
-        <h1 className="header-title">NMPC Collection Route </h1>
+        <h1 className="header-title">MSU-IIT NMPC Collection Route </h1>
       </div>
       <nav className="header-nav">
         <ul>
