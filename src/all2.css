@@ -78,9 +78,6 @@
   font-size: 9px;
   font-weight: bold;
   color: black;
-  /* background-color: white; */
-  /* border: 1px solid gray; */
-  /* border-radius: 3px; */
   padding: 1px 3px;
   margin-bottom: 2px;
   display: ruby-text;
@@ -150,5 +147,3 @@
   justify-content: flex-end;
   gap: 10px;
 }
-
-

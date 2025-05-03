@@ -7,6 +7,11 @@ import "./all2.css";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
 import RoutingMachine from './RoutingMachine';
+import { Polyline } from 'react-leaflet';
+import openrouteservice from 'openrouteservice-js';
+
+
+
 
 // Define icons for start and destination
 const startIcon = L.divIcon({
@@ -150,31 +155,69 @@ const MapPage = () => {
   };
 
   // 👉 UPDATED styleFeature: use polyline style
-  const styleFeature = feature => {
-    const name = normalizeString(feature.properties.adm4_en);
-    if (!shouldHighlight(name)) return { weight: 0, opacity: 0 }; // Hide non-highlighted
-    return {
-      fillOpacity: 0,          // No fill color
-      color: 'black',          // Border color
-      weight: 1,               // Border thickness
-      opacity: 1,              // Border opacity
+  const styleFeature = (feature) => {
+    const name = normalizeString(feature.properties.adm4_en); // Or whatever property contains the name of the region
+    if (name === "ILIGAN") { // Assuming 'ILIGAN' is how it is represented in your GeoJSON
+      return {
+        fillOpacity: 0.5,           // Apply fill color opacity
+        fillColor: '#FF5733',       // Highlight color for Iligan (Change the color to your preference)
+        color: 'black',             // Border color
+        weight: 3,                  // Border thickness
+        opacity: 1,                 // Border opacity
+      };
+    }
+     // Apply default styles for other features
+      return {
+        weight: 0,  // Hide other non-highlighted regions
+        opacity: 0,
+      };
     };
-  };
 
-  const onEachFeature = (feature, layer) => {
-    const name = normalizeString(feature.properties.adm4_en);
-    if (!shouldHighlight(name)) return;
-  };
+    const onEachFeature = (feature, layer) => {
+      const name = normalizeString(feature.properties.adm4_en);
+      if (name === "ili") {
+        // Add popup for Iligan (optional)
+        layer.bindPopup(`<strong>${name}</strong><br>Region Highlighted`);
+      }
+    };
 
   const handleMapClick = (latlng) => {
     if (!start) setStart(latlng);
     else setDestinations(prev => [...prev, latlng]);
   };
 
-  const handleRoute = () => {
-    if (!start || destinations.length === 0) return;
-    setRouteCoords([start, ...destinations]);
-  };
+  const Directions = openrouteservice.Directions;
+const directions = new Directions({ api_key: '5b3ce3597851110001cf62487aa7f6d5979e4a7e825bf415ba123247' });
+
+const handleRoute = async () => {
+  if (!start || destinations.length === 0) return;
+
+  // Ensure coordinates are in [lon, lat]
+  const coordinates = [start.position, ...destinations.map(d => d.position)].map(
+    ([lat, lon]) => [lon, lat]
+  );
+
+  try {
+    const response = await directions.calculate({
+      coordinates,
+      profile: 'driving-car',
+      format: 'geojson',
+      instructions: false,
+      alternative_routes: {
+        share_factor: 0.6,
+        target_count: 3
+      }
+    });
+
+    const alternativeRoutes = response.features.map(
+      feature => feature.geometry.coordinates
+    );
+
+    setRouteCoords(alternativeRoutes);
+  } catch (error) {
+    console.error('Error fetching routes:', error.response?.data || error.message || error);
+  }
+};
 
   const handleReset = () => {
     setStart(null);
@@ -250,15 +293,16 @@ const MapPage = () => {
   };
   
   const filteredGeoJson = iliGeoJSON && iliGeoJSON.features ? {
-      ...iliGeoJSON,
-      features: iliGeoJSON.features.filter(f => shouldHighlight(f.properties.adm4_en))
-    } : { features: [] };
+    ...iliGeoJSON,
+    features: iliGeoJSON.features.filter(f => shouldHighlight(f.properties.adm4_en))
+  } : { features: [] };
+  
 
   return (
     <div className="map-page">
       <div className="map-controls">
-        <button onClick={handleRoute} disabled={!start || destinations.length === 0}>Route</button>
-        <button onClick={handleOptimize} disabled={!start || destinations.length === 0}>Optimize</button>
+      <button onClick={handleRoute} disabled={!start || destinations.length === 0}>Route</button>
+      <button onClick={handleOptimize} disabled={!start || destinations.length === 0}>Optimize</button>
         <button onClick={handleReset}>Reset</button>
         <button onClick={detectCurrentLocation}>Use My Location</button>
       </div>
@@ -320,8 +364,19 @@ const MapPage = () => {
           )}
 
 
-          {routeCoords.length > 1 && <RoutingMachine waypoints={routeCoords.map(p => p.position || p)} />}
-        </MapContainer>
+          {
+            routeCoords.length > 0 &&
+              routeCoords.map((route, index) => (
+                <Polyline
+                  key={index}
+                  positions={route}
+                  color={index === 0 ? 'blue' : index === 1 ? 'green' : 'red'}
+                  weight={4}
+                />
+              ))
+          }
+  
+   </MapContainer>     
         <div className="route-instructions">
           <h3>Route List</h3>
           {routeCoords.length > 1 ? (
@@ -363,9 +418,14 @@ const MapPage = () => {
             </div>
           </div>
         )}
-
-
-
+        <div className="traffic-overlay">
+          {/* Optionally render traffic data */}
+          {trafficData.map((item) => (
+            <div key={item.barangay}>
+              <span>{item.barangay}: {item.count} incidents</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

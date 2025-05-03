@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
-import iliGeoJSON from './ili.geojson';  // Import the new GeoJSON file
+import iliganData from './iliganmap.json';
 import "./all2.css";
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
@@ -249,10 +249,10 @@ const MapPage = () => {
     );
   };
   
-  const filteredGeoJson = iliGeoJSON && iliGeoJSON.features ? {
-      ...iliGeoJSON,
-      features: iliGeoJSON.features.filter(f => shouldHighlight(f.properties.adm4_en))
-    } : { features: [] };
+  const filteredGeoJson = {
+    ...iliganData,
+    features: iliganData.features.filter(f => shouldHighlight(f.properties.adm4_en))
+  };
 
   return (
     <div className="map-page">

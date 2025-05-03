@@ -13,6 +13,8 @@
     "font-awesome": "^4.7.0",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
+    "openrouteservice": "^0.1.2",
+    "openrouteservice-js": "^0.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
