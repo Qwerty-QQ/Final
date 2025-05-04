@@ -1,6 +1,6 @@
 import logging
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import osmnx as ox
 import networkx as nx
 import itertools
@@ -150,6 +150,7 @@ def snap_point():
         return jsonify({"error": str(e)}), 400
 
 @app.route('/optimize', methods=['POST'])
+@cross_origin(origin='*')
 def optimize_route():
     data = request.get_json()
     start = tuple(data.get('start'))
@@ -216,4 +217,4 @@ def optimize_route():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
