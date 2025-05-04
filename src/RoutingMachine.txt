@@ -1,0 +1,53 @@
+import { useEffect, useRef } from 'react';
+import { useMap } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet-routing-machine';
+
+const RoutingMachine = ({ waypoints }) => {
+  const map = useMap();
+  const routingControlRef = useRef(null);
+
+  useEffect(() => {
+    if (!map || !waypoints || waypoints.length < 2) return;
+
+    // Remove previous routing control if any
+    if (routingControlRef.current) {
+      map.removeControl(routingControlRef.current);
+    }
+
+    // Your Mapbox API token
+    const accessToken = 'pk.eyJ1IjoiY2N4MTQyOSIsImEiOiJjbWE3eWp4d3kwajQyMmxwdGpka3NoaGZtIn0.dFehqYfPUQa6jGJIixWWig';
+    const altColors = ['#007bff', '#28a745', '#ffc107', '#dc3545', '#6f42c1'];
+
+    // Define routing control with Mapbox
+    const control = L.Routing.control({
+      waypoints: waypoints.map(point => L.latLng(point[0], point[1])),
+      router: L.Routing.mapbox(accessToken, {
+        profile: 'mapbox/driving', // or 'walking', 'cycling'
+        alternatives: true,
+      }),
+      routeWhileDragging: false,
+      addWaypoints: false,
+      draggableWaypoints: false,
+      fitSelectedRoutes: true,
+      show: false,
+      createMarker: () => null,
+      lineOptions: {
+        styles: [{ color: '#007bff', weight: 4 }]
+      }
+    }).addTo(map);
+
+    routingControlRef.current = control;
+
+    return () => {
+      if (routingControlRef.current) {
+        map.removeControl(routingControlRef.current);
+        routingControlRef.current = null;
+      }
+    };
+  }, [map, waypoints]);
+
+  return null;
+};
+
+export default RoutingMachine;

@@ -254,6 +254,9 @@ const MapPage = () => {
       features: iliGeoJSON.features.filter(f => shouldHighlight(f.properties.adm4_en))
     } : { features: [] };
 
+
+    
+  
   return (
     <div className="map-page">
       <div className="map-controls">
@@ -320,8 +323,7 @@ const MapPage = () => {
           )}
 
 
-          {routeCoords.length > 1 && <RoutingMachine waypoints={routeCoords.map(p => p.position || p)} />}
-        </MapContainer>
+      {routeCoords.length > 1 && <RoutingMachine waypoints={routeCoords.map(p => p.position || p)} />}        </MapContainer>
         <div className="route-instructions">
           <h3>Route List</h3>
           {routeCoords.length > 1 ? (
