@@ -184,7 +184,7 @@ const MapPage = () => {
 
   const snapPointToRoad = async (point) => {
     try {
-      const res = await fetch("http://localhost:5000/snap", {
+      const res = await fetch("http://localhost:8080/snap", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ point }),
@@ -203,7 +203,7 @@ const MapPage = () => {
     if (!start || destinations.length === 0) return;
   
     try {
-      const response = await fetch('http://localhost:5000/optimize', {
+      const response = await fetch('http://localhost:8080/optimize', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ start, destinations })
